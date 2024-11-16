@@ -1,0 +1,85 @@
+/**
+* A class that maintains information on a book.
+Class diagram with 'uses' relations between classes.
+* @authors (Insert your names here.)
+* @version (Insert todays date here.)
+*/
+public class Book
+{
+// The fields:
+private String author; // assume the book has one author only
+private String title;
+private String pages;
+private String shelfNumber;
+private String barcode;
+private boolean available;
+private int numBorrowings;
+// Constructor
+public Book(String bookAuthor, String bookTitle)
+{
+author = bookAuthor;
+title = bookTitle;
+}
+// accessor method for author
+public String getAuthor()
+{
+String awaitingValue = "test";
+// put your code here
+return awaitingValue;
+}
+
+//new code
+public void setShelfNumber(String shelfNumberParam) {
+    this.shelfNumber = shelfNumberParam;
+}
+
+public void setBarcode(String barcodeParam) {
+    this.barcode = barcodeParam;
+}
+
+public void borrowBook() {
+    this.available = false;
+    this.numBorrowings++;
+    
+    //ok so i need to check if it is available, but how do i refer to a specific book?
+    //barcodeNumber uniquely identifies every book. Array element in library?
+}
+
+public void returnBook() {
+    this.available = true;
+}
+
+public void printAuthor() {
+    System.out.printf("Book author: %s", this.author);
+}
+
+public void printTitle() {
+    System.out.printf("Book title: %s", this.title);
+}
+
+public void printPages() {
+    System.out.printf("Number of pages: %s", this.pages);
+}
+
+public void printShelfNumber() {
+    System.out.printf("Shelf number: %s", this.shelfNumber);
+}
+
+public void printBarcode() {
+    System.out.printf("Barcode: %s", this.barcode);
+}
+
+public void printAvailability() {
+    System.out.printf("Availability: %s", this.available);
+}
+
+public void printNumBorrowings() {
+    System.out.printf("Number of borrowings: %d", this.numBorrowings);
+}
+
+public void printAllDetails() {
+    System.out.printf("Book author: %s\nBook title: %s\nNumber of pages: %s\nShelf number: %s\nBarcode: %s\nAvailability: %s\nNumber of borrowings: %d",
+    this.author, this.title, this.pages, this.shelfNumber, this.barcode, this.available, this.numBorrowings);
+}
+
+}
