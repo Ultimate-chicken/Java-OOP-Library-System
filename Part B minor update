@@ -1,0 +1,97 @@
+import java.util.Scanner;
+
+/**
+ * Write a description of class Library here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class Library
+{
+    Scanner userInput = new Scanner(System.in);
+
+    private Book[] bookCollection;
+    private int collectionSize;
+    private String address;
+    private String openingHours;
+
+    //put array of objects as argument to method. this.arrayElement(Object) = objectField. 
+    //for (class object : x) { object.getBook() if(getName() = x)) { execute x } )}
+
+    // Constructor for objects of class Library
+    public Library(String adr)
+    {
+        address = adr;
+        bookCollection = new Book[500];
+        collectionSize = 0;
+        openingHours = " 9:00 - 21:00 "; //all libraries have the same hours //should't it be static parameter?
+    }
+
+    public void printOpeningHours() {
+        System.out.println("Library hours: " + openingHours);
+    }
+
+    public void printAddress() {
+        System.out.println("Library address: " + address);
+    }
+    
+    /***** Borrow Book *****/
+        public boolean borrowBook(String barcode) {
+        for (Book book : bookCollection) {
+            if (book.getBarcode().equals(barcode) && !book.isBorrowed()) {
+                book.setBorrowed(true);
+                return true;
+            }
+        }
+        System.out.println("Book not available for borrowing.");
+        return false;
+    }
+    
+    /***** Return Book *****/
+        public boolean returnBook(String barcode) {
+        for (Book book : bookCollection) {
+            if (book.getBarcode().equals(barcode) && book.borrowBook()) {
+                book.borrowBook(false);
+                return true;
+            }
+        }
+        System.out.println("Invalid return or book not from this library.");
+        return false;
+    }
+
+    // Add a book to the library collection
+    public void addBook(Book book)
+    {
+        // put your code here
+        //add 5 variables which are author, title, num of pages, shelf num, barcode
+        //first to check if the book is in the system, copy the return book method with looping
+        //if the barcode of the new book is not equal to the barcode that is already exist in the system then add the book to the system. otherwise return null
+        this.collectionSize++;
+    }
+
+    public void searchBook(Book[] bookCollection) {
+        int resultCounter = 0;
+        System.out.print("\fPlease, insert the title, author, barcode, or shelf-number of the book you are looking for: ");
+        String userKeyword = userInput.nextLine();
+        System.out.printf("Books that match the inserted keyword \"%s\": ", userKeyword);
+
+        for (int i=0; i<collectionSize; i++) {
+
+            if ((bookCollection[i].getAuthor().contains(userKeyword)) || (bookCollection[i].getTitle().contains(userKeyword)) ||
+            (bookCollection[i].getBarcode().contains(userKeyword)) || (bookCollection[i].getShelfNumber().contains(userKeyword))) 
+            {
+                System.out.printf("Author: %s\nTitle: %s\nBarcode %s\n Shelf Number %s\n", bookCollection[i].getAuthor(), bookCollection[i].getTitle(),
+                    bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber());
+                resultCounter++;
+            } else {
+                continue;
+            }
+        }
+
+        if (resultCounter < 1) {
+            System.out.printf("None.");
+        }
+    }
+    // add your code here
+
+}
