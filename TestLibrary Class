@@ -1,0 +1,102 @@
+import java.util.Scanner;
+/**
+ */
+
+public class TestLibrary
+{
+    public static void main(String[] args)
+    {
+        Scanner userInput = new Scanner(System.in);
+        String userString; int userSelection;
+        
+        Library firstLibrary = new Library("31 Main Street");
+        Library secondLibrary = new Library("83 Rue de Montparnasse");
+        System.out.print("\f");
+                
+        while (true) {
+            System.out.print("\n\nPlease, select what you want to do:\n 1-Add a new book\n 2-Borrow A book\n 3-Return a book\n 4-Show... \n 5-Search book\n6-Exit program\n\n Choice: ");  
+            userSelection = userInput.nextInt(); userInput.nextLine();
+            
+            if (userSelection == 1) { //Add book
+                System.out.print("\nPlease, insert book details in the following form (author, title, pages, shelf number, barcode): ");
+                userString = userInput.nextLine();
+                String[] userArguments = userString.split(",");
+                
+                firstLibrary.addBook(new Book(userArguments[0],userArguments[1],userArguments[2],userArguments[3], userArguments[4])); 
+            }
+            
+            if (userSelection == 2) { //borrow book
+                System.out.print("\nPlease, insert barcode: ");
+                userString = userInput.nextLine();
+                firstLibrary.borrowBook(userString);
+            }
+            
+            if (userSelection == 3) {
+                System.out.print("\nPlease, insert barcode: ");
+                userString = userInput.nextLine();
+                firstLibrary.returnBook(userString);
+            }
+            
+            if (userSelection == 4) {
+                System.out.print("\n\n 1-All boooks\n 2-Available books\n 3-List of author names\n 4-Author names without repetition \n 5-Library details\n6-Books of author... \n\n Choice: ");
+                userSelection = userInput.nextInt(); userInput.nextLine();
+                
+                if (userSelection == 1) {
+                    firstLibrary.showAll();
+                }
+            }
+        
+        }
+        
+        
+        
+        
+        
+        
+        
+        /*
+        firstLibrary.addBook(new Book("Antoine De Saint-Exupery","The Little Prince",128,"400.sei", 1002)); 
+        firstLibrary.addBook(new Book("Charles Dickens","A Tale of Two Cities",412,"400.dic", 1003)); 
+        firstLibrary.addBook(new Book("J. R. R. Tolkien","The Fellowship of the Ring",398,"308.tol", 1004));
+        firstLibrary.addBook(new Book("J. R. R. Tolkien","The Two Towers",327,"308.tol", 1005));
+        
+        //print library hours and address.
+        System.out.println("Library  hours:"); 
+        firstLibrary.printOpeningHours();
+        System.out.println();
+        System.out.println("Library addresses:"); 
+        firstLibrary.printAddress(); 
+        secondLibrary.printAddress(); 
+        System.out.println();
+        
+        // Test for double borrowing 
+        System.out.println("Borrowing  The Two Towers:"); 
+        firstLibrary.borrowBook(1005); 
+        firstLibrary.borrowBook(1005); 
+        
+        //Test for borrowing if not available
+        secondLibrary.borrowBook(1002); 
+        System.out.println();
+        
+        //print all available books in a library class object.
+        System.out.println("Books available in the first library:"); 
+        firstLibrary.printAvailableBooks();
+        System.out.println();
+        System.out.println("Books available in the second library:");
+        secondLibrary.printAvailableBooks();
+        System.out.println();
+        
+        // Return The Two Towers to the first library. Test for double return 
+        System.out.println("Returning The Two Towers:"); 
+        firstLibrary.returnBook(1005);
+        System.out.println();
+        firstLibrary.returnBook(1005);
+        System.out.println();
+        
+        // Print the titles of available books from the first library 
+        System.out.println("Books available in the first library:"); 
+        firstLibrary.printAvailableBooks();
+        
+        // Add more test code here... */
+    }
+}
