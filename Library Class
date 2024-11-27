@@ -1,0 +1,117 @@
+import java.util.Scanner;
+
+/**
+ * Write a description of class Library here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class Library
+{
+    Scanner userInput = new Scanner(System.in);
+    
+    private Book[] bookCollection;
+    private int collectionSize;
+    private String address;
+    private String openingHours;
+
+    //put array of objects as argument to method. this.arrayElement(Object) = objectField. 
+    //for (class object : x) { object.getBook() if(getName() = x)) { execute x } )}
+    
+    // Constructor for objects of class Library
+    public Library(String adr)
+    {
+        address = adr;
+        bookCollection = new Book[500];
+        collectionSize = 0;
+        openingHours = " 9:00 - 21:00 "; //all libraries have the same hours
+    }
+    
+    // Add a book to the library collection
+    public void addBook(Book book)
+    {
+        bookCollection[collectionSize] = book;
+        this.collectionSize++;
+    }
+    
+    public void searchBook(Book[] bookCollection) {
+        int resultCounter = 0;
+        System.out.print("Please, insert the title, author, barcode, or shelf-number of the book you are looking for: ");
+        String userKeyword = userInput.nextLine();
+        System.out.printf("Books that match the inserted keyword \"%s\": ", userKeyword);
+        
+        for (int i=0; i<collectionSize; i++) {
+            
+            if ((bookCollection[i].getAuthor().contains(userKeyword)) || (bookCollection[i].getTitle().contains(userKeyword)) ||
+            (bookCollection[i].getBarcode().contains(userKeyword)) || (bookCollection[i].getShelfNumber().contains(userKeyword))) 
+            {
+                System.out.printf("Author: %s\nTitle: %s\nBarcode %s\n Shelf Number %s\n\n", bookCollection[i].getAuthor(), bookCollection[i].getTitle(),
+                bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber());
+                resultCounter++;
+            } else {
+                continue;
+            }
+        }
+        
+        if (resultCounter < 1) {
+            System.out.printf("None.");
+        }
+    }
+    
+    public void borrowBook(String userStringParam) {
+        boolean barcodeExists = false;
+
+        for (int i=0; i<collectionSize; i++) {
+            if (bookCollection[i].getBarcode().equals(userStringParam.trim())) {
+                if (bookCollection[i].isAvailable() == true) {
+                    bookCollection[i].borrowBook();
+                    System.out.print("\fBook borrowed successfully.");
+                    barcodeExists = true;
+                    break;
+                } else {
+                    System.out.print("\fSorry, this book is currently unavailable.");
+                    barcodeExists = true;
+                }
+            } else {
+                continue;
+            }
+        } 
+        
+        if(barcodeExists == false) {
+            System.out.print("\fAre you sure you are inserting the right barcode?");
+        } 
+    }
+    
+    public void returnBook(String userStringParam) {
+        boolean barcodeExists = false;
+        
+        for (int i=0; i<collectionSize; i++) {
+            if (bookCollection[i].getBarcode().equals(userStringParam.trim())) {
+                if (bookCollection[i].isAvailable() == false) {
+                    bookCollection[i].returnBook();
+                    System.out.print("\fBook returned successfully.");
+                    barcodeExists = true;
+                    break;
+                } else {
+                    System.out.print("\fThis book is not on loan.");
+                    barcodeExists = true;
+                }
+            } else {
+                continue;
+            }
+        } 
+        
+        if(barcodeExists == false) {
+            System.out.print("\fAre you sure you are inserting the right barcode?");
+        } 
+    }
+    
+    public void showAll() {
+        System.out.print("\f");
+        for (int i =0; i<collectionSize; i++) {
+            System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s\n", bookCollection[i].getTitle(), bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber());
+        }
+    }
+        // add your code here
+    
+}
