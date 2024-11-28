@@ -72,9 +72,7 @@ public class Library
                     System.out.print("\fSorry, this book is currently unavailable.");
                     barcodeExists = true;
                 }
-            } else {
-                continue;
-            }
+            } 
         } 
         
         if(barcodeExists == false) {
@@ -96,9 +94,27 @@ public class Library
                     System.out.print("\fThis book is not on loan.");
                     barcodeExists = true;
                 }
-            } else {
-                continue;
-            }
+            } 
+        } 
+        
+        if(barcodeExists == false) {
+            System.out.print("\fAre you sure you are inserting the right barcode?");
+        } 
+    }
+    
+    public void removeBook(String userStringParam) {
+        boolean barcodeExists = false;
+        
+        for (int i=0; i<collectionSize; i++) {
+            if (bookCollection[i].getBarcode().equals(userStringParam.trim())) {
+                for (int j = (i + 1); j<collectionSize; j++) {
+                    bookCollection[j-1] = bookCollection[j]; 
+                }
+                System.out.print("Book deleted successfully!\n");
+                collectionSize--;
+                barcodeExists = true;
+                break;
+            } 
         } 
         
         if(barcodeExists == false) {
@@ -107,11 +123,33 @@ public class Library
     }
     
     public void showAll() {
-        System.out.print("\f");
+        System.out.print("\fList of all books (including available and non-available)");
         for (int i =0; i<collectionSize; i++) {
-            System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s\n", bookCollection[i].getTitle(), bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber());
+            System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s Available: %s\n", bookCollection[i].getTitle(), bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
         }
     }
+    
+    public void showAvailable() {
+        System.out.print("\fList of available books\n");
+        
+        for (int i=0; i<collectionSize; i++) {
+            if (bookCollection[i].isAvailable()) {
+                System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s\n", bookCollection[i].getTitle(), bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber());
+            }
+        }
+    }
+    
+    public void printAuthors() {
+        System.out.print("\fList of author names: \n");
+        for (int i=0; i<collectionSize; i++) {
+                System.out.printf("%s\n", bookCollection[i].getAuthor() );
+        }
+    }
+    
+    public void printLibraryDetails() {
+        System.out.printf("\fDetails of first library\nAddress: %s, Opening times: %s", this.address, this.openingHours);
+    }
+    
         // add your code here
     
 }
