@@ -17,11 +17,11 @@ public class Book
     // Constructor
     public Book(String author, String title, String pages, String shelfNumber, String barcode)
     {
-        this.author = author;
-        this.title = title;
-        this.pages = pages;
-        this.shelfNumber = shelfNumber;
-        this.barcode = barcode.trim();
+        this.author = author.trim().toLowerCase();
+        this.title = title.trim().toLowerCase();
+        this.pages = pages.trim().toLowerCase();
+        this.shelfNumber = shelfNumber.trim().toLowerCase();
+        this.barcode = barcode.trim().toLowerCase();
         this.available = true;
         
         System.out.print("\fBook added successfully!");
@@ -108,3 +108,7 @@ public class Book
     }
 
 }
+
+//1 hour was spent in this commit. This includes writing the code, reading the brief, and testing github uploads. 
+
+//18/11/2024 Updated setters and constructor, added some leyout for setters, spent 1 hour.
