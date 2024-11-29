@@ -15,6 +15,7 @@ public class Book
     private String barcode;
     private boolean available;
     private int numBorrowings;
+    private ArrayList<String> usedBarcodes = new ArrayList<>();
     // Constructor
     public Book(String author, String title, String pages, String shelfNumber, String barcode)
     {
@@ -25,7 +26,7 @@ public class Book
         this.barcode = barcode.trim().toLowerCase();
         this.available = true;
 
-        System.out.print("\fBook added successfully!");
+        System.out.print("Book added successfully!");
 
     }
 
@@ -57,6 +58,7 @@ public class Book
         return available;
     }
 
+    //new code
     public void setShelfNumber(String shelfNumberParam) {
         if (shelfNumber == null || !shelfNumber.matches("\\d{3}\\.\\w{3}")) {
             System.out.print("Wrong shelf number format");
@@ -65,12 +67,14 @@ public class Book
     }
 
     public void setBarcode(String barcodeParam) {
-        this.barcode = barcodeParam;
         Random random = new Random();
-
+        String barcode;
+        
         do {
             barcode = String.format("%08d", random.nextInt(100000000));
-        } while (this.barcode.contains(barcode));
+        } while (usedBarcodes.contains(barcode));
+        
+        usedBarcodes.add(barcode);
     }
 
     public void borrowBook() {
