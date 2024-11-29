@@ -1,166 +1,157 @@
 import java.util.Scanner;
-/**
- */
 
 public class TestLibrary
 {
     public static void main(String[] args)
     {
         Scanner userInput = new Scanner(System.in);
-        String userString; int userSelection;
-        
+        String userString; 
+        int userSelection;
+
         Library firstLibrary = new Library("31 Main Street");
         Library secondLibrary = new Library("83 Rue de Montparnasse");
         System.out.print("\f");
-                
+
         while (true) {
-            System.out.print("\n\nPlease, select what you want to do:\n 1-Add a new book\n 2-Borrow A book\n 3-Return a book\n 4-Remove a book\n 5-Show... \n 6-Search... \n 7-Add sample batch of books \n 8-Exit program\n\n Choice: ");  
-            userSelection = userInput.nextInt(); userInput.nextLine();
-            
-            if (userSelection == 1) { //Add book
-                System.out.print("\nPlease, insert book details in the following form (author, title, pages, shelf number, barcode): ");
-                userString = userInput.nextLine();
-                String[] userArguments = userString.split(",");
-                
-                firstLibrary.addBook(new Book(userArguments[0],userArguments[1],userArguments[2],userArguments[3], userArguments[4])); 
+            boolean correctInput = false;
+            while (!correctInput) {
+                System.out.print("\n\nPlease, select what you want to do:\n 1-Add a new book\n 2-Borrow A book\n 3-Return a book\n 4-Remove a book\n 5-Show... \n 6-Search... \n 7-Add sample batch of books \n 8-Change the book details \n 9-Exit program\n\n Choice: ");  
+
+                if (userInput.hasNextInt()) {
+                    userSelection = userInput.nextInt(); 
+                    userInput.nextLine();
+
+                    if (userSelection >= 1 && userSelection <= 8) {
+                        correctInput = true;
+
+                        if (userSelection == 1) { //Add book
+                            System.out.print("\nPlease, insert book details in the following form (author, title, pages, shelf number): ");
+                            userString = userInput.nextLine();
+                            String[] userArguments = userString.split(",");
+
+                            for (int i = 0; i < userArguments.length; i++) {
+                                userArguments[i] = userArguments[i].trim();
+                            }
+
+                            if (userArguments.length != 4) {
+                                System.out.println("Invalid input. Please provide exactly 4 details.");
+                                continue;
+                            }
+
+                            Book newBook = new Book(userArguments[0], userArguments[1], userArguments[2], userArguments[3], "");
+                            newBook.setBarcode(newBook.getBarcode());
+                            firstLibrary.addBook(newBook); 
+                        }
+
+                        else if (userSelection == 2) { //borrow book
+                            System.out.print("\nPlease, insert barcode: ");
+                            userString = userInput.nextLine();
+                            firstLibrary.borrowBook(userString);
+                        }
+
+                        else if (userSelection == 3) { // return book
+                            System.out.print("\nPlease, insert barcode: ");
+                            userString = userInput.nextLine();
+                            firstLibrary.returnBook(userString);
+                        }
+
+                        else if(userSelection == 4) { //remove a book
+                            System.out.print("\nPlease, insert barcode: ");
+                            userString = userInput.nextLine();
+                            firstLibrary.removeBook(userString);
+                        }
+
+                        else if (userSelection == 5) { //show...
+                            System.out.print("\n\n 1-All boooks\n 2-Available books\n 3-List of author names\n 4-Author names without repetition \n 5-Library details\n\n Choice: ");
+                            userSelection = userInput.nextInt(); userInput.nextLine();
+
+                            if (userSelection == 1) {
+                                firstLibrary.showAll();
+                            }
+
+                            else if (userSelection == 2) {
+                                firstLibrary.showAvailable();
+                            }
+
+                            else if (userSelection == 3) {
+                                firstLibrary.printAuthors();
+                            }
+
+                            else if (userSelection == 4) { //TO DO
+                                firstLibrary.printDistinctAuthors();
+                            }
+
+                            else if (userSelection == 5) {
+                                firstLibrary.printLibraryDetails();
+                            }
+
+                            else {
+                                System.out.print("\fPlease, select an adequate number!\n");
+                            }
+                        }
+
+                        else if (userSelection == 6) {
+                            System.out.print("\n\n 1-By Keyword\n 2-By barcode\n 3-By title\n 4-By author\n 5-By shelf number\n\n Choice: ");
+                            userSelection = userInput.nextInt(); userInput.nextLine();
+
+                            if (userSelection == 1) {
+                                System.out.print("\nInsert your keyword: ");
+                                userString = userInput.nextLine().toLowerCase();
+                                firstLibrary.searchBook(userString);
+                            }
+
+                            else if (userSelection == 2) {
+                                System.out.print("\nPlease, insert barcode: ");
+                                userString = userInput.nextLine();
+                                firstLibrary.searchByBarcode(userString);
+                            }
+
+                            else if(userSelection == 3) {
+                                System.out.print("\nPlease, insert title: ");
+                                userString = userInput.nextLine();
+                                firstLibrary.searchByTitle(userString);
+                            }
+
+                            else if(userSelection == 4) {
+                                System.out.print("\nPlease, insert author: ");
+                                userString = userInput.nextLine();
+                                firstLibrary.searchByAuthor(userString);
+                            }
+
+                            else if(userSelection == 5) {
+                                System.out.print("\nPlease, insert shelf number: ");
+                                userString = userInput.nextLine();
+                                firstLibrary.searchByShelfNumber(userString);
+                            }
+
+                            else {
+                                System.out.print("\fPlease, select an adequate number!\n");
+                            }
+
+                        } else if (userSelection == 7) {
+                            firstLibrary.addBook(new Book("Antoine De Saint-Exupery","The Little Prince","128","400.sei", "13572468")); 
+                            firstLibrary.addBook(new Book("Charles Dickens","A Tale of Two Cities","412","400.dic", "24681357")); 
+                            firstLibrary.addBook(new Book("J. R. R. Tolkien","The Fellowship of the Ring","398","308.tol", "11223344"));
+                            firstLibrary.addBook(new Book("J. R. R. Tolkien","The Two Towers","327","308.tol", "22114433"));
+                        } else if (userSelection == 8) {
+                            System.out.print("\nPlease, insert barcode of the book to modify: ");
+                            userString = userInput.nextLine();
+                            firstLibrary.changeBookDetails(userString);
+                        }
+
+                        else if (userSelection == 9) {
+                            System.exit(0);
+                        }
+
+                        break;
+                    } else {
+                        System.out.println("Please, insert a number between 1 and 8.");
+                    }
+                } else {
+                    System.out.println("Please, insert a valid integer number.");
+                    userInput.nextLine();
+                }
             }
-            
-            else if (userSelection == 2) { //borrow book
-                System.out.print("\nPlease, insert barcode: ");
-                userString = userInput.nextLine();
-                firstLibrary.borrowBook(userString);
-            }
-            
-            else if (userSelection == 3) { // return book
-                System.out.print("\nPlease, insert barcode: ");
-                userString = userInput.nextLine();
-                firstLibrary.returnBook(userString);
-            }
-            
-            else if(userSelection == 4) { //remove a book
-                System.out.print("\nPlease, insert barcode: ");
-                userString = userInput.nextLine();
-                firstLibrary.removeBook(userString);
-            }
-            
-            else if (userSelection == 5) { //show...
-                System.out.print("\n\n 1-All boooks\n 2-Available books\n 3-List of author names\n 4-Author names without repetition \n 5-Library details\n\n Choice: ");
-                userSelection = userInput.nextInt(); userInput.nextLine();
-                
-                if (userSelection == 1) {
-                    firstLibrary.showAll();
-                }
-                
-                else if (userSelection == 2) {
-                    firstLibrary.showAvailable();
-                }
-                
-                else if (userSelection == 3) {
-                    firstLibrary.printAuthors();
-                }
-                
-                else if (userSelection == 4) { //TO DO
-                    firstLibrary.printDistinctAuthors();
-                }
-                
-                else if (userSelection == 5) {
-                    firstLibrary.printLibraryDetails();
-                }
-                
-                else {
-                    System.out.print("\fPlease, select an adequate number!\n");
-                }
-            }
-            
-            else if (userSelection == 6) {
-                System.out.print("\n\n 1-By Keyword\n 2-By barcode\n 3-By title\n 4-By author\n 5-By shelf number\n\n Choice: ");
-                userSelection = userInput.nextInt(); userInput.nextLine();
-                
-                if (userSelection == 1) {
-                    System.out.print("\nInsert your keyword: ");
-                    userString = userInput.nextLine().toLowerCase();
-                    firstLibrary.searchBook(userString);
-                }
-                
-                else if (userSelection == 2) {
-                System.out.print("\nPlease, insert barcode: ");
-                userString = userInput.nextLine();
-                firstLibrary.searchByBarcode(userString);
-                }
-                
-                else if(userSelection == 3) {
-                System.out.print("\nPlease, insert title: ");
-                userString = userInput.nextLine();
-                firstLibrary.searchByTitle(userString);
-                }
-                
-                else if(userSelection == 4) {
-                System.out.print("\nPlease, insert author: ");
-                userString = userInput.nextLine();
-                firstLibrary.searchByAuthor(userString);
-                }
-                
-                else if(userSelection == 5) {
-                System.out.print("\nPlease, insert shelf number: ");
-                userString = userInput.nextLine();
-                firstLibrary.searchByShelfNumber(userString);
-                }
-                
-                else {
-                    System.out.print("\fPlease, select an adequate number!\n");
-                }
-    
-            } else if (userSelection == 7) {
-                firstLibrary.addBook(new Book("Antoine De Saint-Exupery","The Little Prince","128","400.sei", "13572468")); 
-                firstLibrary.addBook(new Book("Charles Dickens","A Tale of Two Cities","412","400.dic", "24681357")); 
-                firstLibrary.addBook(new Book("J. R. R. Tolkien","The Fellowship of the Ring","398","308.tol", "11223344"));
-                firstLibrary.addBook(new Book("J. R. R. Tolkien","The Two Towers","327","308.tol", "22114433"));
-            }
-            else if (userSelection == 8) {
-                System.exit(0);
-            } else {
-                System.out.print("\fPlease, select an adequate number!\n");
-            }
-    /*
-        //print library hours and address.
-        System.out.println("Library  hours:"); 
-        firstLibrary.printOpeningHours();
-        System.out.println();
-        System.out.println("Library addresses:"); 
-        firstLibrary.printAddress(); 
-        secondLibrary.printAddress(); 
-        System.out.println();
-        
-        
-        // Test for double borrowing 
-        System.out.println("Borrowing  The Two Towers:"); 
-        firstLibrary.borrowBook(1005); 
-        firstLibrary.borrowBook(1005); 
-        
-        //Test for borrowing if not available
-        secondLibrary.borrowBook(1002); 
-        System.out.println();
-        
-        //print all available books in a library class object.
-        System.out.println("Books available in the first library:"); 
-        firstLibrary.printAvailableBooks();
-        System.out.println();
-        System.out.println("Books available in the second library:");
-        secondLibrary.printAvailableBooks();
-        System.out.println();
-        
-        // Return The Two Towers to the first library. Test for double return 
-        System.out.println("Returning The Two Towers:"); 
-        firstLibrary.returnBook(1005);
-        System.out.println();
-        firstLibrary.returnBook(1005);
-        System.out.println();
-        
-        // Print the titles of available books from the first library 
-        System.out.println("Books available in the first library:"); 
-        firstLibrary.printAvailableBooks();
-        
-        // Add more test code here... */
         } 
     }
 }
