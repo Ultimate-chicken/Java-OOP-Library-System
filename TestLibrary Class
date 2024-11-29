@@ -21,7 +21,7 @@ public class TestLibrary
                     userSelection = userInput.nextInt(); 
                     userInput.nextLine();
 
-                    if (userSelection >= 1 && userSelection <= 8) {
+                    if (userSelection >= 1 && userSelection <= 9) {
                         correctInput = true;
 
                         if (userSelection == 1) { //Add book
@@ -38,7 +38,7 @@ public class TestLibrary
                                 continue;
                             }
 
-                            Book newBook = new Book(userArguments[0], userArguments[1], userArguments[2], userArguments[3], "");
+                            Book newBook = new Book(userArguments[0], userArguments[1], userArguments[2], userArguments[3], " ");
                             newBook.setBarcode(newBook.getBarcode());
                             firstLibrary.addBook(newBook); 
                         }
@@ -145,7 +145,7 @@ public class TestLibrary
 
                         break;
                     } else {
-                        System.out.println("Please, insert a number between 1 and 8.");
+                        System.out.println("Please, insert a number between 1 and 9.");
                     }
                 } else {
                     System.out.println("Please, insert a valid integer number.");
