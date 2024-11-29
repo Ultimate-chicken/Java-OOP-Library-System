@@ -1,0 +1,12 @@
+while (correctInput == false) {
+                if (userInput.hasNextInt()) {
+                    userSelection = userInput.nextInt(); userInput.nextLine();
+                    if ((userSelection < 1) ||(userSelection > 8)) {
+                        correctInput = true;
+                        break;
+                    } else {
+                        System.out.printf("Please, insert a positive integer number.");
+                        userInput.nextLine();
+                    }
+                }
+            }
