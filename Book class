@@ -74,6 +74,7 @@ public class Book
             barcode = String.format("%08d", random.nextInt(100000000));
         } while (usedBarcodes.contains(barcode));
         
+         this.barcode = barcode;
         usedBarcodes.add(barcode);
     }
 
