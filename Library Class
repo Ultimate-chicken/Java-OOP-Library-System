@@ -31,7 +31,8 @@ public class Library
     public void addBook(Book book)
     {
         bookCollection[collectionSize] = book;
-        this.collectionSize++;
+        collectionSize++;
+        System.out.println("Book added to the collection successfully.");
     }
 
     public void searchBook(String userString) { //case sensitive. must change.
@@ -265,7 +266,7 @@ public class Library
                             );
                             System.out.println("Title updated successfully!");
                             break;
-                            
+
                         case 2:
                             System.out.print("Enter new author: ");
                             String newAuthor = userInput.nextLine();
