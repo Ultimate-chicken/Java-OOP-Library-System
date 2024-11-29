@@ -212,14 +212,14 @@ public class Library
         }
     }
 
-    static void distinct(String[] my_arr){
+    public void distinct(String[] my_arr){
         for (int i = 0; i < my_arr.length; i++){
             int j;
             for (j = 0; j < i; j++)
                 if (my_arr[i].equals(my_arr[j]))
                     break;
             if (i == j)
-                System.out.print(my_arr[i] + " ");
+                System.out.print(my_arr[i] + "\n ");
         }
     }
 
@@ -238,6 +238,99 @@ public class Library
         System.out.printf("\fDetails of first library\nAddress: %s, Opening times: %s", this.address, this.openingHours);
     }
 
-    // add your code here
+    public void changeBookDetails(String barcode) {
+        boolean barcodeExists = false;
+
+        for (int i = 0; i < collectionSize; i++) {
+            if (bookCollection[i].getBarcode().equals(barcode.trim())) {
+                barcodeExists = true;
+
+                while (true) {
+                    System.out.print("\nSelect detail to change:\n");
+                    System.out.print("1-Title\n2-Author\n3-Pages\n4-Shelf Number\n5-Barcode\n6-Exit\n\nChoice: ");
+
+                    int choice = userInput.nextInt();
+                    userInput.nextLine();
+
+                    switch(choice) {
+                        case 1:
+                            System.out.print("Enter new title: ");
+                            String newTitle = userInput.nextLine();
+                            bookCollection[i] = new Book(
+                                bookCollection[i].getAuthor(), 
+                                newTitle, 
+                                bookCollection[i].getPages(), 
+                                bookCollection[i].getShelfNumber(), 
+                                bookCollection[i].getBarcode()
+                            );
+                            System.out.println("Title updated successfully!");
+                            break;
+                            
+                        case 2:
+                            System.out.print("Enter new author: ");
+                            String newAuthor = userInput.nextLine();
+                            bookCollection[i] = new Book(
+                                newAuthor, 
+                                bookCollection[i].getTitle(), 
+                                bookCollection[i].getPages(), 
+                                bookCollection[i].getShelfNumber(), 
+                                bookCollection[i].getBarcode()
+                            );
+                            System.out.println("Author updated successfully!");
+                            break;
+
+                        case 3:
+                            System.out.print("Enter new number of pages: ");
+                            String newPages = userInput.nextLine();
+                            bookCollection[i] = new Book(
+                                bookCollection[i].getAuthor(), 
+                                bookCollection[i].getTitle(), 
+                                newPages, 
+                                bookCollection[i].getShelfNumber(), 
+                                bookCollection[i].getBarcode()
+                            );
+                            System.out.println("Pages updated successfully!");
+                            break;
+
+                        case 4:
+                            System.out.print("Enter new shelf number: ");
+                            String newShelfNumber = userInput.nextLine();
+                            bookCollection[i] = new Book(
+                                bookCollection[i].getAuthor(), 
+                                bookCollection[i].getTitle(), 
+                                bookCollection[i].getPages(), 
+                                newShelfNumber, 
+                                bookCollection[i].getBarcode()
+                            );
+                            System.out.println("Shelf number updated successfully!");
+                            break;
+
+                        case 5:
+                            System.out.print("Enter new barcode: ");
+                            String newBarcode = userInput.nextLine();
+                            bookCollection[i] = new Book(
+                                bookCollection[i].getAuthor(), 
+                                bookCollection[i].getTitle(), 
+                                bookCollection[i].getPages(), 
+                                bookCollection[i].getShelfNumber(), 
+                                newBarcode
+                            );
+                            System.out.println("Barcode updated successfully!");
+                            break;
+
+                        case 6:
+                            return;
+
+                        default:
+                            System.out.println("Invalid choice. Please try again.");
+                    }
+                }
+            }
+        }
+
+        if (!barcodeExists) {
+            System.out.println("Book with barcode " + barcode + " not found.");
+        }
+    }
 
 }
