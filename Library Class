@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Library
 {
     Scanner userInput = new Scanner(System.in);
-    
+
     private Book[] bookCollection;
     private int collectionSize;
     private String address;
@@ -17,7 +17,7 @@ public class Library
 
     //put array of objects as argument to method. this.arrayElement(Object) = objectField. 
     //for (class object : x) { object.getBook() if(getName() = x)) { execute x } )}
-    
+
     // Constructor for objects of class Library
     public Library(String adr)
     {
@@ -26,46 +26,46 @@ public class Library
         collectionSize = 0;
         openingHours = " 9:00 - 21:00 "; //all libraries have the same hours
     }
-    
+
     // Add a book to the library collection
     public void addBook(Book book)
     {
         bookCollection[collectionSize] = book;
         this.collectionSize++;
     }
-    
+
     public void searchBook(String userString) { //case sensitive. must change.
         int resultCounter = 0;
         System.out.printf("\fBooks that match the inserted Keyword '%s'\n", userString);
-        
+
         for (int i=0; i<collectionSize; i++) {
             if ((bookCollection[i].getAuthor().contains(userString)) || (bookCollection[i].getTitle().contains(userString)))
             {
                 System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s Available: %s\n", bookCollection[i].getTitle(), 
-                bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
+                    bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
                 resultCounter++;
             } 
         }
-        
+
         if (resultCounter < 1) {
             System.out.printf("None.");
         }
     }
-    
+
     public void searchByBarcode(String userString) { //to finish.
         int resultCounter = 0;
         System.out.printf("\fBooks that match the inserted barcode '%s'\n", userString);
-        
-         for (int i=0; i<collectionSize; i++) {
+
+        for (int i=0; i<collectionSize; i++) {
             if (bookCollection[i].getBarcode().contains(userString)) 
             {
                 System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s Available: %s\n", bookCollection[i].getTitle(), 
-                bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
+                    bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
                 resultCounter++;
             } 
         }
-        
-         if (resultCounter < 1) {
+
+        if (resultCounter < 1) {
             System.out.printf("None.");
         }
     }
@@ -73,57 +73,57 @@ public class Library
     public void searchByTitle(String userString) {
         int resultCounter = 0;
         System.out.printf("\fBooks that match the inserted title '%s'\n", userString);
-        
-         for (int i=0; i<collectionSize; i++) {
+
+        for (int i=0; i<collectionSize; i++) {
             if (bookCollection[i].getTitle().contains(userString)) 
             {
                 System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s Available: %s\n", bookCollection[i].getTitle(), 
-                bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
+                    bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
                 resultCounter++;
             } 
         }
-        
-         if (resultCounter < 1) {
+
+        if (resultCounter < 1) {
             System.out.printf("None.");
         }
     }
-    
+
     public void searchByAuthor (String userString) {
         int resultCounter = 0;
         System.out.printf("\fBooks that match the inserted author '%s'\n", userString);
-        
-         for (int i=0; i<collectionSize; i++) {
+
+        for (int i=0; i<collectionSize; i++) {
             if (bookCollection[i].getAuthor().contains(userString)) 
             {
                 System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s Available: %s\n", bookCollection[i].getTitle(), 
-                bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
+                    bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
                 resultCounter++;
             } 
         }
-        
-         if (resultCounter < 1) {
+
+        if (resultCounter < 1) {
             System.out.printf("None.");
         }
     }
-    
+
     public void searchByShelfNumber (String userString) {
         int resultCounter = 0;
         System.out.printf("\fBooks that match the inserted shelf number '%s'\n", userString);
-        
-         for (int i=0; i<collectionSize; i++) {
+
+        for (int i=0; i<collectionSize; i++) {
             if (bookCollection[i].getShelfNumber().contains(userString)) 
             {
                 System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s Available: %s\n", bookCollection[i].getTitle(), 
-                bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
+                    bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
                 resultCounter++;
             } 
         }
-        
-         if (resultCounter < 1) {
+
+        if (resultCounter < 1) {
             System.out.printf("None.");
         }
     }
-    
+
     public void borrowBook(String userStringParam) {
         boolean barcodeExists = false;
 
@@ -140,15 +140,15 @@ public class Library
                 }
             } 
         } 
-        
+
         if(barcodeExists == false) {
             System.out.print("\fAre you sure you are inserting the right barcode?");
         } 
     }
-    
+
     public void returnBook(String userStringParam) {
         boolean barcodeExists = false;
-        
+
         for (int i=0; i<collectionSize; i++) {
             if (bookCollection[i].getBarcode().equals(userStringParam.trim())) {
                 if (bookCollection[i].isAvailable() == false) {
@@ -162,15 +162,15 @@ public class Library
                 }
             } 
         } 
-        
+
         if(barcodeExists == false) {
             System.out.print("\fAre you sure you are inserting the right barcode?");
         } 
     }
-    
+
     public void removeBook(String userStringParam) { //can have index out of bounds if [500]
         boolean barcodeExists = false;
-        
+
         for (int i=0; i<collectionSize; i++) {
             if (bookCollection[i].getBarcode().equals(userStringParam.trim())) {
                 for (int j = (i + 1); j<collectionSize; j++) {
@@ -182,47 +182,62 @@ public class Library
                 break;
             } 
         } 
-        
+
         if(barcodeExists == false) {
             System.out.print("\fAre you sure you are inserting the right barcode?");
         } 
     }
-    
+
     public void showAll() {
         System.out.print("\fList of all books (including available and non-available)\n");
         for (int i =0; i<collectionSize; i++) {
             System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s Available: %s\n", bookCollection[i].getTitle(), bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber(), bookCollection[i].isAvailable());
         }
     }
-    
+
     public void showAvailable() {
         System.out.print("\fList of available books\n");
-        
+
         for (int i=0; i<collectionSize; i++) {
             if (bookCollection[i].isAvailable()) {
                 System.out.printf("Title: %s, Author: %s, Barcode: %s, Shelf-number: %s\n", bookCollection[i].getTitle(), bookCollection[i].getAuthor(), bookCollection[i].getBarcode(), bookCollection[i].getShelfNumber());
             }
         }
     }
-    
+
     public void printAuthors() {
         System.out.print("\fList of author names: \n");
         for (int i=0; i<collectionSize; i++) {
-                System.out.printf("%s\n", bookCollection[i].getAuthor() );
+            System.out.printf("%s\n", bookCollection[i].getAuthor() );
         }
     }
-    
+
+    static void distinct(String[] my_arr){
+        for (int i = 0; i < my_arr.length; i++){
+            int j;
+            for (j = 0; j < i; j++)
+                if (my_arr[i].equals(my_arr[j]))
+                    break;
+            if (i == j)
+                System.out.print(my_arr[i] + " ");
+        }
+    }
+
     public void printDistinctAuthors() { //to do
         System.out.print("\fList of (distinct) author names: \n");
-        String[] arrayDistinctAuthors;
-        
+        String[] arrayDistinctAuthors = new String[collectionSize];
+
+        for (int i = 0; i < collectionSize; i++) {
+            arrayDistinctAuthors[i] = bookCollection[i].getAuthor();
+        }
+        distinct(arrayDistinctAuthors); 
         //either create temp array for authors and check if name already there or do sort algorithm to check if contiguous elements in the array are the same. 
     }
-    
+
     public void printLibraryDetails() {
         System.out.printf("\fDetails of first library\nAddress: %s, Opening times: %s", this.address, this.openingHours);
     }
-    
-        // add your code here
-    
+
+    // add your code here
+
 }
