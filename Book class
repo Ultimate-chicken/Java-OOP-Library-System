@@ -4,6 +4,7 @@ Class diagram with 'uses' relations between classes.
  * @authors (Insert your names here.)
  * @version (Insert todays date here.)
  */
+import java.util.*;
 public class Book
 {
     // The fields:
@@ -23,9 +24,9 @@ public class Book
         this.shelfNumber = shelfNumber.trim().toLowerCase();
         this.barcode = barcode.trim().toLowerCase();
         this.available = true;
-        
+
         System.out.print("\fBook added successfully!");
-        
+
     }
 
     /***** Getters *****/
@@ -56,13 +57,20 @@ public class Book
         return available;
     }
 
-    //new code
     public void setShelfNumber(String shelfNumberParam) {
-        this.shelfNumber = shelfNumberParam;
+        if (shelfNumber == null || !shelfNumber.matches("\\d{3}\\.\\w{3}")) {
+            System.out.print("Wrong shelf number format");
+        }
+        this.shelfNumber = shelfNumberParam.toLowerCase().trim();
     }
 
     public void setBarcode(String barcodeParam) {
         this.barcode = barcodeParam;
+        Random random = new Random();
+
+        do {
+            barcode = String.format("%08d", random.nextInt(100000000));
+        } while (this.barcode.contains(barcode));
     }
 
     public void borrowBook() {
@@ -108,7 +116,3 @@ public class Book
     }
 
 }
-
-//1 hour was spent in this commit. This includes writing the code, reading the brief, and testing github uploads. 
-
-//18/11/2024 Updated setters and constructor, added some leyout for setters, spent 1 hour.
